@@ -28,6 +28,29 @@ class BookViewset(viewsets.ModelViewSet):
         object.save(update_fields=("view_count",))
         return super().retrieve(request, *args, **kwargs)
 
+    def filter_queryset(self, queryset):
+        queryset = super().filter_queryset(queryset)
+        for book in queryset:
+            rate = 0
+            count = book.ratings.count()
+            for user in book.ratings.all():
+                object = Comment.objects.get(user=user.id, book=book.id)
+                if object.rating:
+                    rate += object.rating
+                else:
+                    count -= 1
+            try:
+                rate = rate/count
+
+            except:
+                rate = 0
+
+            finally:
+                book.rate = rate
+                book.save()
+
+        return queryset
+
 
 class CommentViewset(viewsets.ModelViewSet):
     permission_class = (IsAuthenticatedOrReadOnly,)
