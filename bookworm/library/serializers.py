@@ -24,6 +24,13 @@ class CommentSerializer(serializers.ModelSerializer):
         fields = ('id', 'user', 'book', 'rating', 'text')
         read_only_field = ('id', 'user')
 
+    def create(self, validated_data):
+        user = self.context['user']
+        validated_data["user"] = user
+        instance = super().create(validated_data)
+        return instance
+
+
 
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:

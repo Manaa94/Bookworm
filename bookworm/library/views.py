@@ -23,6 +23,12 @@ class CommentViewset(viewsets.ModelViewSet):
     serializer_class = CommentSerializer
     queryset = Comment.objects.all()
 
+    def get_serializer_context(self):
+        context = super(CommentViewset, self).get_serializer_context()
+        context['user'] = self.request.user
+        return context
+
+
 
 class Register(GenericAPIView):
     serializer_class = RegisterSerializer
