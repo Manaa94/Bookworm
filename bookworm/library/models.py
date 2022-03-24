@@ -27,3 +27,15 @@ class Book(models.Model):
     def __str__(self):
         return self.title
 
+
+class Comment(models.Model):
+    user = models.ForeignKey(User, related_name='comments', on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, related_name='comments', on_delete=models.CASCADE)
+    text = models.TextField()
+    rating = models.SmallIntegerField(choices=[(i, i) for i in range(1, 6)], null=True, blank=True)
+
+    class Meta:
+        unique_together = (
+            'book',
+            'user'
+        )
