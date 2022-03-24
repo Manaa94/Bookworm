@@ -32,8 +32,8 @@ class BookViewset(viewsets.ModelViewSet):
         queryset = super().filter_queryset(queryset)
         for book in queryset:
             rate = 0
-            count = book.ratings.count()
-            for user in book.ratings.all():
+            count = book.user_ratings_id.count()
+            for user in book.user_ratings_id.all():
                 object = Comment.objects.get(user=user.id, book=book.id)
                 if object.rating:
                     rate += object.rating

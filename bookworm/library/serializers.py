@@ -7,7 +7,7 @@ class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Author
         fields = ('id', 'first_name', 'last_name', 'nationality')
-        read_only_field = ('id')
+        read_only_fields = ('id')
 
 
 class BookSerializer(serializers.ModelSerializer):
@@ -15,14 +15,14 @@ class BookSerializer(serializers.ModelSerializer):
         model = Book
         fields = ('id', 'title', 'author', 'genre', 'rate',
                   'summary', 'cover', 'view_count', 'published_at')
-        read_only_field = ('id', 'rate', 'view_count')
+        read_only_fields = ('id', 'rate', 'view_count')
 
 
 class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = ('id', 'user', 'book', 'rating', 'text')
-        read_only_field = ('id', 'user')
+        read_only_fields = ('id', 'user')
 
     def create(self, validated_data):
         user = self.context['user']
