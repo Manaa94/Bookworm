@@ -20,7 +20,7 @@ class Book(models.Model):
     summary = models.TextField(blank=True, null=True)
     cover = models.ImageField(upload_to='library/static/covers/', default='static/covers/default-cover.jpeg')
     view_count = models.IntegerField(default=0)
-    published_at = models.DateTimeField(blank=True, null=True)
+    published_at = models.CharField(max_length=4, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
