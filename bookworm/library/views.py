@@ -13,18 +13,21 @@ class AuthorViewset(viewsets.ModelViewSet):
     permission_class = (IsAuthenticatedOrReadOnly,)
     serializer_class = AuthorSerializer
     queryset = Author.objects.all()
+    filterset_fields = ['first_name', 'last_name', 'nationality']
 
 
 class BookViewset(viewsets.ModelViewSet):
     permission_class = (IsAuthenticatedOrReadOnly,)
     serializer_class = BookSerializer
     queryset = Book.objects.order_by('-rate')
+    filterset_fields = ['title', 'genre', 'author', 'rate']
 
 
 class CommentViewset(viewsets.ModelViewSet):
     permission_class = (IsAuthenticatedOrReadOnly,)
     serializer_class = CommentSerializer
     queryset = Comment.objects.all()
+    filterset_fields = ['user', 'book']
 
     def get_serializer_context(self):
         context = super(CommentViewset, self).get_serializer_context()
