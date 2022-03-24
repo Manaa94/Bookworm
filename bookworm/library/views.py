@@ -2,7 +2,7 @@ from rest_framework import viewsets
 from rest_framework.generics import GenericAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework import status
 from .serializers import AuthorSerializer, BookSerializer, CommentSerializer, RegisterSerializer, UserSerializer
@@ -10,16 +10,19 @@ from .models import Author, Book, Comment
 
 
 class AuthorViewset(viewsets.ModelViewSet):
+    permission_class = (IsAuthenticatedOrReadOnly,)
     serializer_class = AuthorSerializer
     queryset = Author.objects.all()
 
 
 class BookViewset(viewsets.ModelViewSet):
+    permission_class = (IsAuthenticatedOrReadOnly,)
     serializer_class = BookSerializer
     queryset = Book.objects.order_by('-rate')
 
 
 class CommentViewset(viewsets.ModelViewSet):
+    permission_class = (IsAuthenticatedOrReadOnly,)
     serializer_class = CommentSerializer
     queryset = Comment.objects.all()
 
@@ -27,7 +30,6 @@ class CommentViewset(viewsets.ModelViewSet):
         context = super(CommentViewset, self).get_serializer_context()
         context['user'] = self.request.user
         return context
-
 
 
 class Register(GenericAPIView):
