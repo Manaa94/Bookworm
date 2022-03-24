@@ -22,6 +22,12 @@ class BookViewset(viewsets.ModelViewSet):
     queryset = Book.objects.order_by('-rate')
     filterset_fields = ['title', 'genre', 'author', 'rate']
 
+    def retrieve(self, request, *args, **kwargs):
+        object = self.get_object()
+        object.view_count = object.view_count + 1
+        object.save(update_fields=("view_count",))
+        return super().retrieve(request, *args, **kwargs)
+
 
 class CommentViewset(viewsets.ModelViewSet):
     permission_class = (IsAuthenticatedOrReadOnly,)
