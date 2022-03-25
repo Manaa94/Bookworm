@@ -7,7 +7,7 @@ class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Author
         fields = ('id', 'first_name', 'last_name', 'nationality')
-        read_only_fields = ('id')
+        read_only_fields = ('id',)
 
 
 class BookSerializer(serializers.ModelSerializer):
