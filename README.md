@@ -5,7 +5,7 @@ This app is about books. By registering in this application, the user can add th
 * Python3
 * Django4
 * Djangorest
-* 
+
 # Installation
 
 **1. clone the project**
