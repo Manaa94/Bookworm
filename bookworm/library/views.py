@@ -10,6 +10,7 @@ from .models import Author, Book, Comment
 
 
 class AuthorViewset(viewsets.ModelViewSet):
+    throttle_scope = 'authors'
     permission_class = (IsAuthenticatedOrReadOnly,)
     serializer_class = AuthorSerializer
     queryset = Author.objects.all()
@@ -17,6 +18,7 @@ class AuthorViewset(viewsets.ModelViewSet):
 
 
 class BookViewset(viewsets.ModelViewSet):
+    throttle_scope = 'books'
     permission_class = (IsAuthenticatedOrReadOnly,)
     serializer_class = BookSerializer
     queryset = Book.objects.order_by('-rate')
@@ -53,6 +55,7 @@ class BookViewset(viewsets.ModelViewSet):
 
 
 class CommentViewset(viewsets.ModelViewSet):
+    throttle_scope = 'comments'
     permission_class = (IsAuthenticatedOrReadOnly,)
     serializer_class = CommentSerializer
     queryset = Comment.objects.all()
